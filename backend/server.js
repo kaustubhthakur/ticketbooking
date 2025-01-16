@@ -16,7 +16,6 @@ const connection = async(req,res)=> {
         console.log(error)
     }
 }
-
 connection();
 app.use('/auth',authrouter);
 app.listen(port,() => {
