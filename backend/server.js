@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose')
 require('dotenv').config();
 const authrouter = require('./routes/auth')
+const userrouter = require('./routes/users')
 app.use(express.json())
 app.use(cookieParser())
 
@@ -18,6 +19,7 @@ const connection = async(req,res)=> {
 }
 connection();
 app.use('/auth',authrouter);
+app.use('/users',userrouter);
 app.listen(port,() => {
     console.log(`server is running on port ${port}...`)
 })
