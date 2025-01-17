@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const SeatSchema = new mongoose.Schema({
     price: { type: Number, default: 0 },
-    seatNumber: [
+    seatNumbers: [
         {
             number: Number,
             isbooked: {

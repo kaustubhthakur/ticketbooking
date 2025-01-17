@@ -8,7 +8,7 @@ const createSeat = async (req, res, next) => {
     try {
         const savedSeat = await newSeat.save();
         try {
-            await Hotel.findByIdAndUpdate(eventIdId, {
+            await Hotel.findByIdAndUpdate(eventId, {
                 $push: { seats: savedSeat._id },
             });
         } catch (err) {
@@ -33,11 +33,11 @@ const updateSeat = async (req, res, next) => {
 };
 const updateSeatAvailability = async (req, res, next) => {
     try {
-        await Room.updateOne(
-            { "roomSeats._id": req.params.id },
+        await Seat.updateOne(
+            { "seatNumbers._id": req.params.id },
             {
                 $push: {
-                    "roomSeats.$.unavailableDates": req.body.dates
+                    "seatNumbers.$.isbooked": req.body.booleans
                 },
             }
         );
@@ -46,13 +46,13 @@ const updateSeatAvailability = async (req, res, next) => {
         next(err);
     }
 };
-export const deleteRoom = async (req, res, next) => {
-    const hotelId = req.params.hotelid;
+const deleteSeat = async (req, res, next) => {
+    const eventId = req.params.eventid;
     try {
-        await Room.findByIdAndDelete(req.params.id);
+        await Seat.findByIdAndDelete(req.params.id);
         try {
-            await Hotel.findByIdAndUpdate(hotelId, {
-                $pull: { rooms: req.params.id },
+            await Event.findByIdAndUpdate(eventId, {
+                $pull: { seats: req.params.id },
             });
         } catch (err) {
             next(err);
@@ -62,4 +62,20 @@ export const deleteRoom = async (req, res, next) => {
         next(err);
     }
 };
-module.exports = {createSeat}
+const getSeats = async (req, res) => {
+    try {
+        const seats = await Seat.find();
+        res.status(201).json(seats);
+    } catch (error) {
+        console.error(error)
+    }
+}
+const getSeat = async (req, res) => {
+    try {
+        const seat = await Seat.findById(req.params.id);
+        res.status(201).json(seat);
+    } catch (error) {
+        console.error(error)
+    }
+}
+module.exports = { createSeat, deleteSeat, updateSeatAvailability, updateSeat, getSeat, getSeats }
