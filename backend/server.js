@@ -7,6 +7,7 @@ require('dotenv').config();
 const authrouter = require('./routes/auth')
 const userrouter = require('./routes/users')
 const eventrouter = require('./routes/events')
+const seatrouter = require('./routes/seats')
 app.use(express.json())
 app.use(cookieParser())
 
@@ -22,6 +23,7 @@ connection();
 app.use('/auth',authrouter);
 app.use('/users',userrouter);
 app.use('/events',eventrouter);
+app.use('/seats',seatrouter)
 app.listen(port,() => {
     console.log(`server is running on port ${port}...`)
 })
