@@ -8,14 +8,24 @@ const createEvent = async(req,res)=> {
         console.error(error);
     }
 }
+const updateEvent = async(req,res)=>{
+    try {
+        const updatedEvent = await Event.findByIdAndUpdate(
+            req.params.id,
+            { $set: req.body },
+            { new: true }
+          );
+          res.status(201).json(updatedEvent)
+    } catch (error) {
+        console.error(error);
+    }
+}
 const deleteEvent = async(req,res)=>{
     try {
          await Event.findByIdAndDelete(req.params.id);
         res.status(201).json({message:"event is deleted..."});
     } catch (error) {
         console.error(error);
-
-
     }
 }
 const getEvents = async(req,res)=> {
@@ -36,4 +46,4 @@ const getEvent = async(req,res)=>{
         console.error(error);
     }
 }
-module.exports = {createEvent,getEvent,getEvents,deleteEvent}
+module.exports = {createEvent,getEvent,getEvents,deleteEvent,updateEvent}
