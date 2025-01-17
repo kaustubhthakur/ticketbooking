@@ -8,6 +8,16 @@ const createEvent = async(req,res)=> {
         console.error(error);
     }
 }
+const deleteEvent = async(req,res)=>{
+    try {
+         await Event.findByIdAndDelete(req.params.id);
+        res.status(201).json({message:"event is deleted..."});
+    } catch (error) {
+        console.error(error);
+
+
+    }
+}
 const getEvents = async(req,res)=> {
     try {
         const events = await Event.find();
@@ -26,4 +36,4 @@ const getEvent = async(req,res)=>{
         console.error(error);
     }
 }
-module.exports = {createEvent,getEvent,getEvents}
+module.exports = {createEvent,getEvent,getEvents,deleteEvent}
