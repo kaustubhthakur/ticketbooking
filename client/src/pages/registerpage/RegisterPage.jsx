@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { UserDataContext } from '../../context/UserContext';
-
+import "./RegisterPage.css"
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -95,9 +95,7 @@ const RegisterPage = () => {
           Already have an account? <Link to="/login" className="register-link">Login here</Link>
         </p>
 
-        <div className="register-small-text mt-6">
-          <p>This site is protected by reCAPTCHA and the <span className="underline">Google Privacy Policy</span> and <span className="underline">Terms of Service apply</span>.</p>
-        </div>
+       
       </div>
     </div>
   );
