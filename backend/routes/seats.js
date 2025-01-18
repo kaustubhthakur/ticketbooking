@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
-const protectRoute = require('../utils/protectRoute')
-const verifyAdmin = require('../utils/protectRoute');
+const {protectRoute} = require('../utils/protectRoute')
+const {verifyAdmin} = require('../utils/protectRoute');
 const {createSeat,updateSeat,updateSeatAvailability,deleteSeat,getSeat,getSeats} = require('../controllers/seats')
 router.post('/:id',protectRoute,verifyAdmin,createSeat)
 router.put('/:id/:seatid',protectRoute,verifyAdmin,updateSeat)

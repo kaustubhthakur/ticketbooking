@@ -25,8 +25,9 @@ const RegisterPage = () => {
     if (response.status === 201) {
       const data = response.data;
       setUser(data.user);
+      alert('Registered successfully!');
       localStorage.setItem('token', data.token);
-      navigate('/home');
+      navigate('/');
     }
 
     setUsername('');
@@ -35,68 +36,67 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <div className='p-7 h-screen flex flex-col justify-between'>
-        <div>
-          <img
-            className='w-16 mb-10'
-            src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYQy-OIkA6In0fTvVwZADPmFFibjmszu2A0g&s'
-            alt=''
-          />
+    <div className="register-container">
+      <div className="register-form">
+        <div className="flex justify-center mb-6">
+       
+        </div>
+        <form onSubmit={submitHandler}>
+          <h3 className="register-heading">Create your account</h3>
 
-          <form onSubmit={submitHandler}>
-            <h3 className='text-lg font-medium mb-2'>Choose a username</h3>
+          <div className="mb-6">
+            <label htmlFor="username" className="register-label">Choose a username</label>
             <input
+              id="username"
               required
               value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-              className='bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base'
-              type='text'
-              placeholder='Username'
+              onChange={(e) => setUsername(e.target.value)}
+              className="register-input"
+              type="text"
+              placeholder="Username"
             />
+          </div>
 
-            <h3 className='text-lg font-medium mb-2'>What's your email</h3>
+          <div className="mb-6">
+            <label htmlFor="email" className="register-label">What's your email</label>
             <input
+              id="email"
               required
               value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              className='bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base'
-              type='email'
-              placeholder='email@example.com'
+              onChange={(e) => setEmail(e.target.value)}
+              className="register-input"
+              type="email"
+              placeholder="email@example.com"
             />
+          </div>
 
-            <h3 className='text-lg font-medium mb-2'>Enter Password</h3>
+          <div className="mb-6">
+            <label htmlFor="password" className="register-label">Enter Password</label>
             <input
-              className='bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base'
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              id="password"
               required
-              type='password'
-              placeholder='password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="register-input"
+              type="password"
+              placeholder="password"
             />
+          </div>
 
-            <button
-              className='bg-[#111] text-white font-semibold mb-3 rounded-lg px-4 py-2 w-full text-lg placeholder:text-base'
-            >
-              Create account
-            </button>
-          </form>
-          <p className='text-center'>
-            Already have an account? <Link to='/login' className='text-blue-600'>Login here</Link>
-          </p>
-        </div>
-        <div>
-          <p className='text-[10px] leading-tight'>
-            This site is protected by reCAPTCHA and the{' '}
-            <span className='underline'>Google Privacy Policy</span> and{' '}
-            <span className='underline'>Terms of Service apply</span>.
-          </p>
+          <button
+            type="submit"
+            className="register-button"
+          >
+            Create account
+          </button>
+        </form>
+
+        <p className="text-center mt-4">
+          Already have an account? <Link to="/login" className="register-link">Login here</Link>
+        </p>
+
+        <div className="register-small-text mt-6">
+          <p>This site is protected by reCAPTCHA and the <span className="underline">Google Privacy Policy</span> and <span className="underline">Terms of Service apply</span>.</p>
         </div>
       </div>
     </div>
