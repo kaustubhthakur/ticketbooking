@@ -12,6 +12,7 @@ const seatrouter = require('./routes/seats')
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors());
+
 const connection = async (req, res) => {
     try {
         await mongoose.connect(process.env.MONGODB);
