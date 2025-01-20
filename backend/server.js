@@ -10,7 +10,7 @@ const userrouter = require('./routes/users')
 const eventrouter = require('./routes/events')
 const seatrouter = require('./routes/seats')
 app.use(express.json())
-app.use(cookieParser())
+app.use(cookieParser();
 app.use(cors());
 
 const connection = async (req, res) => {
