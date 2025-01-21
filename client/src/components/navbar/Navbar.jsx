@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">MyLogo</div>
+      <div className="navbar-logo">BookMyEvent</div>
       <div className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
         <a href="/login" className="navbar-link">Login</a>
         <a href="/register" className="navbar-link">Register</a>
