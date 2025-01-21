@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(cookieParser();
 app.use(cors());
 
-const connection = async (req, res) => {
+const connection = async () => {
     try {
         await mongoose.connect(process.env.MONGODB);
         console.log('database is connected...')
