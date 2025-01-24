@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const User = require('../models/User')
 const register = async (req, res) => {
     try {
-        const { username, email, password, role } = req.body;
+        const { username, email, password } = req.body;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             return res.status(400).json({ error: "Invalid email format" });
@@ -23,7 +23,7 @@ const register = async (req, res) => {
         }
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const newuser = new User({ username, email, password: hashedPassword, role });
+        const newuser = new User({ username, email, password: hashedPassword });
         if (newuser) {
             generateTokenAndSetCookie(newuser._id, res);
             const saveuser = await newuser.save();
