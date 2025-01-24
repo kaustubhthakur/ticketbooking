@@ -33,6 +33,10 @@ const EventSchema = new mongoose.Schema({
         type: Number,
         default: 1000000,
     },
+    maxseats:{
+        type:Number,
+        default:0,
+    }
 
 },
     {
