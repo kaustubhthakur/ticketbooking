@@ -15,4 +15,12 @@ const getUsers = async(req,res)=>{
         console.error(error);
     }
 }
-module.exports = {getUser,getUsers}
+const deleteUser = async(req,res)=>{
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.status(201).json({message:"user has been deleted"});
+    } catch (error) {
+        console.error(error);
+    }
+}
+module.exports = {getUser,getUsers,deleteUser}
