@@ -8,4 +8,11 @@ const createEvent = async(req,res)=>{
         console.error(error);
     }
 }
+const getEvent = async(req,res)=>{
+    try {
+        
+    } catch (error) {
+        console.error(error);
+    }
+}
 module.exports = {createEvent}
