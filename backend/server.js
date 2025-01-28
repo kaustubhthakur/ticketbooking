@@ -6,6 +6,7 @@ const cookieparser = require('cookie-parser')
 const userrouter = require('./routes/users')
 const authrouter = require('./routes/auth')
 const eventrouter = require('./routes/events')
+const seatrouter = require('./routes/seats')
 require('dotenv').config();
 const cors = require('cors');
 app.use(express.json());
@@ -23,6 +24,7 @@ connection();
 app.use('/users', userrouter)
 app.use('/auth', authrouter);
 app.use('/events',eventrouter)
+app.use('/seats',seatrouter)
 app.listen(port, () => {
     console.log(`server is running on port ${port}...`)
 })
