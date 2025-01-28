@@ -1,5 +1,5 @@
 const User = require('../models/User')
-const authorizeAdmin = (req, res, next) => {
+const verifyAdmin = (req, res, next) => {
     if (req.user && req.user.isAdmin) {
         next();
     } else {
@@ -7,4 +7,4 @@ const authorizeAdmin = (req, res, next) => {
     }
 };
 
-module.exports = { authorizeAdmin }
+module.exports =  verifyAdmin 

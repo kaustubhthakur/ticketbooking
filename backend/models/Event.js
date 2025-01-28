@@ -16,10 +16,12 @@ const EventSchema = new mongoose.Schema({
     city: {
         type: String,
         default: "",
+        required: true,
     },
     location: {
         type: String,
         default: "",
+        required: true,
     },
     seats: {
         type: [String],
@@ -28,14 +30,16 @@ const EventSchema = new mongoose.Schema({
     minprice: {
         type: Number,
         default: 0,
+
     },
     maxprice: {
         type: Number,
         default: 1000000,
     },
-    maxseats:{
-        type:Number,
-        default:0,
+    maxseats: {
+        type: Number,
+        default: 0,
+        required: true,
     }
 
 },
