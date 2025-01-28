@@ -4,15 +4,13 @@ const SeatSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
-    seatNumber: [{
+    seatNumbers: [{
+     
+        number:Number,
         isBooked: {
             type: Boolean,
             default: false,
         },
-        number: {
-            type: Number,
-            default: 1,
-        }
     }],
 
 },{
