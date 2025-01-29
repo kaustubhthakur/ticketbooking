@@ -1,0 +1,64 @@
+.navbar {
+    background: linear-gradient(to right, #290e29, #00ffff);
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    padding: 10px 20px;
+    display: flex;
+    height: 55px;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black;
+  }
+  .img-logo{
+    height: 45px;
+    border-radius: 10px;
+color: blue;
+  }
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px yellow;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    padding: 5px 10px;
+    background: yellow;
+    border: 2px solid black;
+    border-radius: 5px;
+  }
+  
+  .hamburger {
+    background: none;
+    border: none;
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      background: #ff00ff;
+      position: absolute;
+      top: 60px;
+      right: 10px;
+      border: 2px solid black;
+      padding: 10px;
+    }
+  
+    .nav-links.open {
+      display: flex;
+    }
+  
+    .hamburger {
+      display: block;
+      cursor: pointer;
+    }
+  }
+  
