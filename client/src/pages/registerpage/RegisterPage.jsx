@@ -1,80 +1,99 @@
-import { useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import "./RegisterPage.css"
-export default function RegisterPage() {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    isAdmin: false,
-  });
-  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
-  };
+const RegisterPage = () => {
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [isAdmin, setIsAdmin] = useState(false)
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:9000/auth/register", formData);
-      localStorage.setItem("user", JSON.stringify(response.data));
-      navigate("/");
-      alert('registerd successfully!')
-    } catch (error) {
-      console.error("Registration failed", error);
+  const navigate = useNavigate()
+
+  const submitHandler = async (e) => {
+    e.preventDefault()
+    const newUser = {
+      username,
+      email,
+      password,
+      isAdmin
     }
-  };
+
+    const response = await axios.post("http://localhost:9000/auth/register", newUser)
+
+    if (response.status === 201) {
+      localStorage.setItem('token', response.data.token)
+      navigate('/')
+    }
+
+    setUsername('')
+    setEmail('')
+    setPassword('')
+    setIsAdmin(false)
+    alert('registered!')
+    console.log(response)
+  }
 
   return (
-    <div className="register-container">
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <label>
+    <div className='register-page'>
+      <div className='register-container'>
+        <form onSubmit={submitHandler} className='register-form'>
+          <h3 className='form-heading'>Username</h3>
           <input
-            type="checkbox"
-            name="isAdmin"
-            checked={formData.isAdmin}
-            onChange={handleChange}
+            required
+            className='input-field'
+            type="text"
+            placeholder='Enter username'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
-       Are You A Organiser?
-        </label>
-        <button type="submit">Register</button>
 
-      </form>
-      <span className="login-link">
-        If registered, then <Link to='/login'>Login</Link>
-      </span>
+          <h3 className='form-heading'>Email</h3>
+          <input
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className='input-field'
+            type="email"
+            placeholder='email@example.com'
+          />
+
+          <h3 className='form-heading'>Password</h3>
+          <input
+            className='input-field'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required type="password"
+            placeholder='password'
+          />
+
+          <div className='admin-checkbox'>
+            <input
+              type="checkbox"
+              id="isAdmin"
+              checked={isAdmin}
+              onChange={(e) => setIsAdmin(e.target.checked)}
+              className='checkbox-input'
+            />
+            <label htmlFor="isAdmin" className='checkbox-label'>Admin</label>
+          </div>
+
+          <button className='submit-button'>
+            Create account
+          </button>
+        </form>
+        <p className='login-link'>
+          Already have an account? <Link to='/login' className='link'>Login here</Link>
+        </p>
+      </div>
+      <div className='recaptcha'>
+        <p className='recaptcha-text'>
+          This site is protected by reCAPTCHA and the <span className='underline'>Google Privacy Policy</span> and <span className='underline'>Terms of Service apply</span>.
+        </p>
+      </div>
     </div>
-  );
+  )
 }
+
+export default RegisterPage
