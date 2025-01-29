@@ -10,7 +10,7 @@ const seatrouter = require('./routes/seats')
 require('dotenv').config();
 const cors = require('cors');
 app.use(express.json());
-app.use(cookieparser());
+//app.use(cookieparser());
 app.use(cors());
 const connection = async (req, res) => {
     try {
