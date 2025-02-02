@@ -9,9 +9,12 @@ const eventrouter = require('./routes/events')
 const seatrouter = require('./routes/seats')
 require('dotenv').config();
 const cors = require('cors');
-app.use(express.json());
-//app.use(cookieparser());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', // Update with your frontend URL
+    credentials: true
+  }));
+  app.use(express.json());
+  //app.use(cookieparser())
 const connection = async (req, res) => {
     try {
         await mongoose.connect(process.env.MONGODB);
