@@ -1,113 +1,140 @@
-/* General styles for the login page */
-.login-page {
-    padding: 2rem;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: #f9f9f9;
-  }
-  
-  .login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .logo {
-    width: 4rem;
-    margin-bottom: 2rem;
-  }
-  
-  .login-form {
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const Navbar = () => {
+  const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [authState, setAuthState] = useState({
+    isLoggedIn: false,
+    isAdmin: false
+  });
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+    setAuthState({ isLoggedIn: !!token, isAdmin });
+  }, []);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const handleLogout = async () => {
+    try {
+      await axios.post('/api/auth/logout', null, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('authToken')}`
+        }
+      });
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('isAdmin');
+      setAuthState({ isLoggedIn: false, isAdmin: false });
+      navigate('/login');
+      toggleMenu();
+    }
+  };
+
+  return (
+    <nav className="navbar">
+      <div className="nav-container">
+        <Link to="/" className="logo">
+          YourLogo
+        </Link>
+
+        <button 
+          className={`hamburger ${isMenuOpen ? 'active' : ''}`} 
+          onClick={toggleMenu}
+          aria-label="Toggle navigation menu"
+        >
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+        </button>
+
+        <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
+          {authState.isLoggedIn ? (
+            <>
+              <Link to="/profile" className="nav-link" onClick={toggleMenu}>
+                Profile
+              </Link>
+              {authState.isAdmin && (
+                <span className="admin-badge">Admin</span>
+              )}
+              <button 
+                onClick={handleLogout} 
+                className="nav-link logout-button"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/register" className="nav-link" onClick={toggleMenu}>
+                Register
+              </Link>
+              <Link to="/login" className="nav-link" onClick={toggleMenu}>
+                Login
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
+
+// Updated CSS Styles
+const styles = `
+  .navbar {
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    position: fixed;
     width: 100%;
-    max-width: 400px;
-    background-color: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    top: 0;
+    z-index: 1000;
   }
-  
-  .form-heading {
-    font-size: 1.125rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-  }
-  
-  .input-field {
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-    background-color: #f5f5f5;
-  }
-  
-  .input-field::placeholder {
-    color: #aaa;
-  }
-  
-  .submit-button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #111;
+
+  /* ... (keep existing styles) ... */
+
+  .admin-badge {
+    background: #4CAF50;
     color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+  }
+
+  .logout-button {
+    background: none;
     border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 1rem;
+    color: #636e72;
     cursor: pointer;
-  }
-  
-  .submit-button:hover {
-    background-color: #333;
-  }
-  
-  .sign-up-link {
-    text-align: center;
-    font-size: 1rem;
-  }
-  
-  .link {
-    color: #2563eb;
-    text-decoration: none;
-  }
-  
-  .link:hover {
-    text-decoration: underline;
-  }
-  
-  .captain-login {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-  }
-  
-  .captain-button {
-    background-color: #10b461;
-    color: white;
-    font-weight: 600;
-    padding: 0.75rem;
-    border-radius: 8px;
-    text-align: center;
+    font: inherit;
+    padding: 0.5rem 1rem;
+    text-align: left;
     width: 100%;
-    max-width: 400px;
-    text-decoration: none;
   }
-  
-  .captain-button:hover {
-    background-color: #128a4c;
+
+  .logout-button:hover {
+    color: #0984e3;
+    background: rgba(9, 132, 227, 0.1);
   }
-  
-  /* Mobile responsiveness */
-  @media (max-width: 768px) {
-    .login-form {
-      padding: 1.5rem;
-    }
-  
-    .input-field {
-      font-size: 0.9rem;
+
+  @media (min-width: 769px) {
+    .logout-button {
+      width: auto;
+      text-align: center;
     }
   }
-  
+`;
+
+// Inject styles
+const styleSheet = document.createElement('style');
+styleSheet.innerText = styles;
+document.head.appendChild(styleSheet);
