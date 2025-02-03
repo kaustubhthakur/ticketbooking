@@ -14,7 +14,7 @@ app.use(cors({
     credentials: true
   }));
   app.use(express.json());
-  //app.use(cookieparser())
+  app.use(cookieparser())
 const connection = async (req, res) => {
     try {
         await mongoose.connect(process.env.MONGODB);

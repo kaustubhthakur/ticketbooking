@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const jwt = require('jsonwebtoken')
+require('dotenv').config();
 const protectRoute = async (req, res, next) => {
 	try {
 		const token = req.cookies.jwt;
