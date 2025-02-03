@@ -46,6 +46,8 @@ const Navbar = () => {
                   <span>{user.username}</span>
                   {user?.isAdmin && <span className="admin-badge">Admin</span>}
                   {!user?.isAdmin && <span className="admin-badge">User</span>}
+                  <a href="/profile">profile</a>
+                  <a href="/createevent">CreateEvent</a>
                   <button className="logout-btn" onClick={handleLogout}>
                     Logout
                   </button>
