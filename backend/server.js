@@ -3,8 +3,12 @@ const mongoose =require('mongoose')
 const app = express();
 const port = 9000;
 const cookieparser= require('cookie-parser')
+const authrouter = require('./routes/auth')
+const eventrouter = require('./routes/events')
 const cors = require('cors')
 require('dotenv').config();
+
+
 
 app.use(express.json())
 app.use(cors())
@@ -19,7 +23,8 @@ console.log('database is connected...')
     }
 }
 connection();
-
+app.use('/auth',authrouter);
+app.use('/events',eventrouter);
 app.listen(port,() =>{
     console.log(`server is running on port ${port}...`)
 })
