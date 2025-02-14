@@ -6,6 +6,7 @@ const cookieparser = require('cookie-parser')
 const authrouter = require('./routes/auth')
 const eventrouter = require('./routes/events')
 const userrouter = require('./routes/users')
+const seatrouter = require('./routes/seats')
 const cors = require('cors')
 require('dotenv').config();
 
@@ -27,6 +28,7 @@ connection();
 app.use('/auth', authrouter);
 app.use('/users', userrouter);
 app.use('/events', eventrouter);
+app.use('/seats',seatrouter)
 
 
 app.listen(port, () => {
