@@ -10,7 +10,6 @@ const cors = require('cors')
 require('dotenv').config();
 
 
-
 app.use(express.json())
 app.use(cors())
 app.use(cookieparser());
@@ -24,9 +23,12 @@ const connection = async (req, res) => {
     }
 }
 connection();
+
 app.use('/auth', authrouter);
 app.use('/users', userrouter);
 app.use('/events', eventrouter);
+
+
 app.listen(port, () => {
     console.log(`server is running on port ${port}...`)
 })
