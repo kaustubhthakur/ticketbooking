@@ -25,11 +25,10 @@ const connection = async (req, res) => {
 }
 connection();
 
-app.use('/auth', authrouter);
-app.use('/users', userrouter);
-app.use('/events', eventrouter);
+app.use('/auth',authrouter);
+app.use('/users',userrouter);
+app.use('/events',eventrouter);
 app.use('/seats',seatrouter)
-
 
 app.listen(port, () => {
     console.log(`server is running on port ${port}...`)

@@ -1,5 +1,5 @@
 const Seat = require('../models/Seat')
-const Event = require('./models/Event')
+const Event = require('../models/Event')
 const createSeat = async (req, res, next) => {
     const eventId = req.params.id;
     const newSeat = new Seat(req.body);
